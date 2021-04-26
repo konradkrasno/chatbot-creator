@@ -1,1 +1,27 @@
-{{ object.name }}
+<p>name: {{ object.name }}</p>
+<p>answer type: {{ object.answer_type }}</p>
+<p>fail node: {{ object.fail_node }}</p>
+
+<div>
+  <p>questions:</p>
+  {% for question in object.questions.all %}
+      <p>{{ question.question }}</p>
+    {% empty %}
+      <p>No questions added yet.</p>
+    {% endfor %}
+    <p><a href="{% url 'nodes:add_question' object.id %}">Add question</a></p>
+</div>
+
+<div>
+  <p>answers:</p>
+  {% for answer in object.rel_from_set.all %}
+    <p>{{ answer.answer }}</p>
+    <p>{{ answer.node_to }}</p>
+  {% empty %}
+    <p>No answers added yet.</p>
+  {% endfor %}
+  <p><a href="{% url 'nodes:add_answer' object.id %}">Add answer</a></p>
+</div>
+
+<p><a href="{% url 'nodes:update' node.id %}">Update</a></p>
+<p><a href="{% url 'nodes:node_list' object.chat.id %}">Node list</a></p>

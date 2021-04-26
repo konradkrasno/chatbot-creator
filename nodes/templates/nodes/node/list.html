@@ -1,3 +1,4 @@
 {% for node in node_list %}
-  <p>{{ node.name }}</p>
+  <p><a href="{{ node.get_absolute_url }}">{{ node.name }}</a>: <a href="{% url 'nodes:update' node.id %}">update</a></p>
 {% endfor %}
+<p><a href="{% url 'nodes:create' %}">Create new node</a></p>
