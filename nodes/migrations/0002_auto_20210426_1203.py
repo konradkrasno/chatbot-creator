@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nodes', '0001_initial'),
+        ("nodes", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='answer',
-            name='answer_type',
+            model_name="answer",
+            name="answer_type",
         ),
         migrations.AddField(
-            model_name='node',
-            name='answer_type',
-            field=models.CharField(choices=[('general', 'General'), ('date', 'Date'), ('time', 'Time')], default='general', max_length=50),
+            model_name="node",
+            name="answer_type",
+            field=models.CharField(
+                choices=[("general", "General"), ("date", "Date"), ("time", "Time")],
+                default="general",
+                max_length=50,
+            ),
             preserve_default=False,
         ),
     ]

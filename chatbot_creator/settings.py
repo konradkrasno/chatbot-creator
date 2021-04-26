@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "nodes.apps.NodesConfig",
     "chats.apps.ChatsConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Account settings
 AUTH_USER_MODEL = "account.User"
+
+
+# Rest Framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
+}

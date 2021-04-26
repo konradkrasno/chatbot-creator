@@ -9,44 +9,115 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('chats', '0002_chat_name'),
+        ("chats", "0002_chat_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Answer',
+            name="Answer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('answer_type', models.CharField(choices=[('general', 'General'), ('date', 'Date'), ('time', 'Time')], max_length=50)),
-                ('answer', models.CharField(max_length=200)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "answer_type",
+                    models.CharField(
+                        choices=[
+                            ("general", "General"),
+                            ("date", "Date"),
+                            ("time", "Time"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("answer", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Node',
+            name="Node",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('chat', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='nodes', to='chats.chat')),
-                ('fail_node', models.OneToOneField(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='fail_predecessor', to='nodes.node')),
-                ('nodes', models.ManyToManyField(related_name='success_predecessors', through='nodes.Answer', to='nodes.Node')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                (
+                    "chat",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="nodes",
+                        to="chats.chat",
+                    ),
+                ),
+                (
+                    "fail_node",
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="fail_predecessor",
+                        to="nodes.node",
+                    ),
+                ),
+                (
+                    "nodes",
+                    models.ManyToManyField(
+                        related_name="success_predecessors",
+                        through="nodes.Answer",
+                        to="nodes.Node",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('question', models.CharField(max_length=200)),
-                ('node', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='nodes.node')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("question", models.CharField(max_length=200)),
+                (
+                    "node",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="questions",
+                        to="nodes.node",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='answer',
-            name='node_from',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rel_from_set', to='nodes.node'),
+            model_name="answer",
+            name="node_from",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="rel_from_set",
+                to="nodes.node",
+            ),
         ),
         migrations.AddField(
-            model_name='answer',
-            name='node_to',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rel_to_set', to='nodes.node'),
+            model_name="answer",
+            name="node_to",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="rel_to_set",
+                to="nodes.node",
+            ),
         ),
     ]
