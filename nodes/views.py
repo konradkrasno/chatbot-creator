@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from nodes.models import Node, Question, Answer
 from nodes.forms import UpdateNodeForm
+from nodes.mixins import GetChatMixin
 
 
 class NodeListView(ListView):
@@ -20,11 +21,10 @@ class NodeDetailView(DetailView):
     template_name = "nodes/node/detail.html"
 
 
-class CreateNodeView(CreateView):
+class CreateNodeView(GetChatMixin, CreateView):
     model = Node
     template_name = "nodes/node/form.html"
     fields = ["chat", "name", "answer_type"]
-    success_url = reverse_lazy("nodes:node_list")
 
 
 class UpdateNodeView(UpdateView):

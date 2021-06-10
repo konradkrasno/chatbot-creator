@@ -26,7 +26,7 @@ class Node(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f"{self.chat.name}:{self.name}"
 
     def get_absolute_url(self):
         return reverse("nodes:node_detail", args=[self.id])
@@ -50,4 +50,8 @@ class Answer(models.Model):
     )
 
     def __str__(self):
-        return self.answer
+        return (
+            f"chat:{self.node_from.chat.name};"
+            f" from node:{self.node_from.name}; to node:{self.node_to.name};"
+            f" answer: {self.answer}"
+        )

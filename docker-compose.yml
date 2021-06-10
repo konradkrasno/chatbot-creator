@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    hostname: postgres
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+
+  mongo:
+    hostname: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+
+  web:
+    hostname: chat_creator
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    depends_on:
+      - postgres
+      - mongo
+    env_file:
+      - ".env"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: ./boot.sh
+
+  chat:
+    hostname: chat
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat
+    depends_on:
+      - postgres
+      - mongo
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/scr/app
+    command: tail -1

@@ -9,14 +9,11 @@ from chats.conversation import Conversation
 @api_view(["POST"])
 @parser_classes([JSONParser])
 def chat(request, format=None):
-    # data = request.data.get("data")
-    data = {
-        "chat_id": 1,
-        "current_node_id": None,
-        "statement": "Hello world",
-    }
     conv = Conversation(
-        chat_id=data.get("chat_id"), current_node_id=data.get("current_node_id")
+        user_id=request.user.id,
+        chat_id=request.data.get("chat_id"),
+        current_node_id=request.data.get("current_node_id"),
+        prev_qstn_id=request.data.get("question_id"),
     )
-    result = conv.get_response(data.get("statement"))
+    result = conv.get_response(request.data.get("statement"))
     return Response(result)
