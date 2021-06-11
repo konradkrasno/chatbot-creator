@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import configparser
 from pathlib import Path
+
+config = configparser.ConfigParser()
+config.read("setup.ini")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +29,7 @@ SECRET_KEY = "django-insecure-n1@2v!je()zgl0u%h&f5#0^6s_$$+&&vb(ze%7xo#%v5e4n=2b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -83,7 +87,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': 'postgres',
+        'HOST': config.get("DATABASE", "HOST"),
         'PORT': '5432',
     }
 }
