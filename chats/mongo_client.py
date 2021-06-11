@@ -1,7 +1,9 @@
-from pymongo import MongoClient
 from datetime import datetime
 
-client = MongoClient(host="mongo", port=27017)
+from django.conf import settings
+from pymongo import MongoClient
+
+client = MongoClient(host=settings.MONGODB['default']['HOST'], port=27017)
 chat_db = client.chat
 user_answers = chat_db.user_answers
 

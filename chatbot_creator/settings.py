@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': config.get("DATABASE", "HOST"),
+        'HOST': config.get("POSTGRES", "HOST"),
         'PORT': '5432',
     }
 }
@@ -146,4 +146,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ]
+}
+
+# Mongo DB settings
+MONGODB = {
+    'default': {
+        'HOST': config.get('MONGO', 'HOST'),
+    }
 }
